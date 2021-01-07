@@ -1,0 +1,24 @@
+>> npm i @nestjs/mongoose
+>> npm i mongoose
+>> npm i -D @types/mongoose
+>> npm i @nestjs/graphql
+>> npm i graphql-tools
+>> npm i graphql
+>> npm i apollo-server-express
+>> npm i class-transformer
+>> npm i class-validator
+>> npm i config
+
+
+
+TODO: use passport for nestjs for easy implementation?
+
+
+>> npm i jsonwebtoken
+>> npm i -D @types/jsonwebtoken
+>> npm i bcryptjs
+>> npm i -D @types/bcryptjs
+>> npm i nodemailer
+>> npm i @nestjs-modules/mailer
+>> npm i uuid
+>> npm i -D @types/uuid
