@@ -1,24 +1,29 @@
-import { Field, OmitType, PickType } from "@nestjs/graphql";
-import { OptionalIdInput } from "src/_misc/base.inputs";
+import { Field, InputType, IntersectionType as it_, OmitType as ot_, PickType as pt_ } from "@nestjs/graphql";
+import * as _ from "../_misc/base.inputs";
 import { Seller } from "./seller.model";
 
-export class ListSellerInput extends OptionalIdInput {
+@InputType()
+export class ListSellerInput extends _.OptionalIdInput {
   @Field(() => String, { nullable: true })
   businessName?: string;
 }
 
-export class CreateSellerInput extends
-  OmitType(Seller, ['_id', 'inventory', 'createdAt', 'updatedAt'] as const) {
+@InputType()
+class SellerInput extends
+  ot_(Seller, ['_id', 'inventory', 'createdAt', 'updatedAt'] as const) { }
+
+@InputType()
+export class CreateSellerInput extends SellerInput {
   // only supports inserting new seller, not inventory
 }
 
 export class UpdateSellerInput extends
-  OmitType(Seller, ['inventory', 'createdAt', 'updatedAt'] as const) {
+  it_(_.RequiredIdInput, SellerInput) {
   // only supports updating seller, not inventory
 }
 
 export class UpdateSellerInv extends
-  PickType(Seller, ['inventory'] as const) {
+  pt_(Seller, ['inventory'] as const) {
   // only for inventory updating
 }
 
