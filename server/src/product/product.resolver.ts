@@ -16,21 +16,21 @@ export class ProductResolver {
 
   @Query(() => [Product])
   async products(@Args('filter', { nullable: true }) filter: _.ListProductInput) {
-    return await this.productService.list(filter);
+    return await this.productService.list<_.ListProductInput>(filter, { deletedAt: null });
   }
 
   @Mutation(() => Product)
   async createProduct(@Args('payload') payload: _.CreateProductInput) {
-    return await this.productService.create(payload);
+    return await this.productService.create<_.CreateProductInput>(payload);
   }
 
   @Mutation(() => Product)
   async updateProduct(@Args('payload') payload: _.UpdateProductInput) {
-    return await this.productService.update(payload);
+    return await this.productService.update(payload._id, payload);
   }
 
   @Mutation(() => Product)
   async deleteProduct(@Args('payload') payload: _.DeleteProductInput) {
-    return await this.productService.delete(payload);
+    return await this.productService.deleteByLogic(payload._id, payload);
   }
 }

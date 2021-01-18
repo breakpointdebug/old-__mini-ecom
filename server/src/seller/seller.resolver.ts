@@ -1,4 +1,4 @@
-import { Args, Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Types } from 'mongoose';
 import { Seller } from './seller.model';
 import { SellerService } from './seller.service';
@@ -16,8 +16,16 @@ export class SellerResolver {
 
   @Query(() => [Seller])
   async sellers(@Args('filter', { nullable: true }) filter: _.ListSellerInput) {
-    return await this.sellerService.list(filter);
+    return await this.sellerService.list<_.ListSellerInput>(filter);
   }
 
+  @Mutation(() => Seller)
+  async createSeller(@Args('payload') payload: _.CreateSellerInput) {
+    return await this.sellerService.create<_.CreateSellerInput>(payload);
+  }
 
+  @Mutation(() => Seller)
+  async updateSeller(@Args('payload') payload: _.UpdateSellerInput) {
+    return await this.sellerService.update<_.UpdateSellerInput>(payload._id, payload);
+  }
 }
