@@ -1,7 +1,7 @@
 import { Field, InputType, IntersectionType as it_, OmitType as ot_, PickType as pt_ } from "@nestjs/graphql";
 import { Seller } from "./seller.model";
 
-import * as _ from "../_generic/base.inputs";
+import * as _ from "../_generic/misc.inputs";
 
 @InputType()
 export class ListSellerInput extends _.OptionalId {

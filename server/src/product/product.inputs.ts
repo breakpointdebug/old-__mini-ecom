@@ -2,7 +2,7 @@ import { Field, InputType, IntersectionType as it_, OmitType as ot_ } from '@nes
 import { IsOptional, Length } from 'class-validator';
 import { Product } from './product.model';
 
-import * as _ from '../_generic/base.inputs';
+import * as _ from '../_generic/misc.inputs';
 
 @InputType()
 export class ListProductInput extends _.OptionalId {

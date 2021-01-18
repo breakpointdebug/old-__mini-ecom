@@ -15,6 +15,7 @@ input CreateProductInput {
 input CreateSellerInput {
   accountId: String = null
   businessName: String!
+  inventories: [InventoryInput!] = null
 }
 
 """
@@ -25,6 +26,22 @@ scalar DateTime
 input DeleteProductInput {
   _id: String!
   deleteReason: String
+}
+
+input InventoryInput {
+  _id: String!
+  createdAt: DateTime = null
+  productId: String!
+  stockCount: Float!
+  updatedAt: DateTime = null
+}
+
+type InventoryType {
+  _id: String!
+  createdAt: DateTime
+  productId: String!
+  stockCount: Float!
+  updatedAt: DateTime
 }
 
 input ListProductInput {
@@ -104,6 +121,7 @@ input SellerInput {
   accountId: String = null
   businessName: String!
   createdAt: DateTime = null
+  inventories: [InventoryInput!] = null
   updatedAt: DateTime = null
 }
 
@@ -112,6 +130,7 @@ type SellerType {
   accountId: String
   businessName: String!
   createdAt: DateTime
+  inventories: [InventoryType!]
   updatedAt: DateTime
 }
 
@@ -130,4 +149,5 @@ input UpdateSellerInput {
   _id: String!
   accountId: String = null
   businessName: String!
+  inventories: [InventoryInput!] = null
 }
