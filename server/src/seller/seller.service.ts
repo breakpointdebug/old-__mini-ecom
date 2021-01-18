@@ -1,16 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import * as _ from './seller.inputs';
 import { Seller, SellerDocument } from './seller.model';
+
+import * as _ from './seller.inputs';
 
 @Injectable()
 export class SellerService {
   constructor(@InjectModel(Seller.name) private sellerModel: Model<SellerDocument>) { }
 
   create(payload: _.CreateSellerInput) {
-    const seller = new this.sellerModel(payload);
-    return seller.save();
+    return (new this.sellerModel(payload)).save();
   }
 
   update(payload: _.UpdateSellerInput) {

@@ -1,29 +1,29 @@
-import { Field, InputType, OmitType } from "@nestjs/graphql";
+import { Field, InputType } from "@nestjs/graphql";
 import { IsOptional } from "class-validator";
 import { Types } from "mongoose";
 import { ProductCategory } from "../product/product.enum";
 
 @InputType()
-export class OptionalIdInput {
+export class OptionalId {
   @Field(() => String, { nullable: true })
   _id?: Types.ObjectId;
 }
 
 @InputType()
-export class RequiredIdInput {
+export class RequiredId {
   @Field(() => String)
   _id: Types.ObjectId;
 }
 
 @InputType()
-export class OptionalProductCategoryInput {
+export class OptionalProductCategory {
   @IsOptional()
   @Field(() => ProductCategory, { nullable: true })
   category?: ProductCategory;
 }
 
 @InputType()
-export class RequiredProductCategoryInput {
+export class RequiredProductCategory {
   @Field(() => ProductCategory)
   category: ProductCategory;
 }

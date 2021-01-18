@@ -27,6 +27,11 @@ input ListProductInput {
   name: String
 }
 
+input ListSellerInput {
+  _id: String
+  businessName: String
+}
+
 type Mutation {
   createProduct(payload: CreateProductInput!): ProductType!
   deleteProduct(payload: DeleteProductInput!): ProductType!
@@ -83,6 +88,24 @@ type ProductType {
 type Query {
   product(_id: String!): ProductType!
   products(filter: ListProductInput): [ProductType!]!
+  seller(_id: String!): SellerType!
+  sellers(filter: ListSellerInput): [SellerType!]!
+}
+
+input SellerInput {
+  _id: String!
+  accountId: String = null
+  businessName: String!
+  createdAt: DateTime = null
+  updatedAt: DateTime = null
+}
+
+type SellerType {
+  _id: String!
+  accountId: String
+  businessName: String!
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 input UpdateProductInput {

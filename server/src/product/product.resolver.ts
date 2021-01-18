@@ -2,6 +2,7 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Types } from 'mongoose';
 import { Product } from './product.model';
 import { ProductService } from './product.service';
+
 import * as _ from './product.inputs';
 
 @Resolver(() => Product)
