@@ -1,0 +1,97 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input CreateProductInput {
+  category: ProductCategory!
+  description: String = null
+  image: String = null
+  name: String!
+  sellerId: String = null
+  sellingPrice: Float = 1
+  sku: String = null
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+input DeleteProductInput {
+  _id: String!
+  deleteReason: String
+}
+
+input ListProductInput {
+  _id: String
+  name: String
+}
+
+type Mutation {
+  createProduct(payload: CreateProductInput!): ProductType!
+  deleteProduct(payload: DeleteProductInput!): ProductType!
+  updateProduct(payload: UpdateProductInput!): ProductType!
+}
+
+enum ProductCategory {
+  APPAREL_AND_ACCESSORIES
+  CHILDREN_AND_INFANTS
+  CONSUMER_ELECTRONIC_GOODS
+  FOOD_AND_BEVERAGE
+  HEALTH_AND_WELLNESS
+  HOME_AND_GARDEN
+  HOME_IMPROVEMENT
+  LEGAL_DRUGS
+  MEDICAL_HEALTH
+  PETS_AND_PET_SUPPLIES
+  SPORTING_GOODS
+  STYLE_AND_FASHION
+}
+
+input ProductInput {
+  _id: String!
+  avgReviewScore: Float = null
+  category: ProductCategory!
+  createdAt: DateTime = null
+  deletedAt: DateTime = null
+  deleteReason: String = null
+  description: String = null
+  image: String = null
+  name: String!
+  sellerId: String = null
+  sellingPrice: Float = 1
+  sku: String = null
+  updatedAt: DateTime = null
+}
+
+type ProductType {
+  _id: String!
+  avgReviewScore: Float
+  category: ProductCategory!
+  createdAt: DateTime
+  deletedAt: DateTime
+  deleteReason: String
+  description: String
+  image: String
+  name: String!
+  sellerId: String
+  sellingPrice: Float!
+  sku: String
+  updatedAt: DateTime
+}
+
+type Query {
+  product(_id: String!): ProductType!
+  products(filter: ListProductInput): [ProductType!]!
+}
+
+input UpdateProductInput {
+  _id: String!
+  category: ProductCategory
+  description: String = null
+  image: String = null
+  name: String!
+  sellerId: String = null
+  sellingPrice: Float = 1
+  sku: String = null
+}
