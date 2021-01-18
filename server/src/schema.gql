@@ -12,6 +12,11 @@ input CreateProductInput {
   sku: String = null
 }
 
+input CreateSellerInput {
+  accountId: String = null
+  businessName: String!
+}
+
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
@@ -27,10 +32,17 @@ input ListProductInput {
   name: String
 }
 
+input ListSellerInput {
+  _id: String
+  businessName: String
+}
+
 type Mutation {
   createProduct(payload: CreateProductInput!): ProductType!
+  createSeller(payload: CreateSellerInput!): SellerType!
   deleteProduct(payload: DeleteProductInput!): ProductType!
   updateProduct(payload: UpdateProductInput!): ProductType!
+  updateSeller(payload: UpdateSellerInput!): SellerType!
 }
 
 enum ProductCategory {
@@ -83,6 +95,24 @@ type ProductType {
 type Query {
   product(_id: String!): ProductType!
   products(filter: ListProductInput): [ProductType!]!
+  seller(_id: String!): SellerType!
+  sellers(filter: ListSellerInput): [SellerType!]!
+}
+
+input SellerInput {
+  _id: String!
+  accountId: String = null
+  businessName: String!
+  createdAt: DateTime = null
+  updatedAt: DateTime = null
+}
+
+type SellerType {
+  _id: String!
+  accountId: String
+  businessName: String!
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 input UpdateProductInput {
@@ -94,4 +124,10 @@ input UpdateProductInput {
   sellerId: String = null
   sellingPrice: Float = 1
   sku: String = null
+}
+
+input UpdateSellerInput {
+  _id: String!
+  accountId: String = null
+  businessName: String!
 }

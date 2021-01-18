@@ -1,31 +1,44 @@
-import { Field, OmitType, PickType } from "@nestjs/graphql";
-import { OptionalIdInput } from "src/_misc/base.inputs";
+import { Field, InputType, IntersectionType as it_, OmitType as ot_, PickType as pt_ } from "@nestjs/graphql";
 import { Seller } from "./seller.model";
 
-export class ListSellerInput extends OptionalIdInput {
+import * as _ from "../_generic/base.inputs";
+
+@InputType()
+export class ListSellerInput extends _.OptionalId {
   @Field(() => String, { nullable: true })
   businessName?: string;
 }
 
-export class CreateSellerInput extends
-  OmitType(Seller, ['_id', 'inventory', 'createdAt', 'updatedAt'] as const) {
+// 'inventory'
+@InputType()
+class SellerInput extends
+  ot_(Seller, ['_id', 'createdAt', 'updatedAt'] as const) { }
+
+@InputType()
+export class CreateSellerInput extends SellerInput {
   // only supports inserting new seller, not inventory
 }
 
+@InputType()
 export class UpdateSellerInput extends
-  OmitType(Seller, ['inventory', 'createdAt', 'updatedAt'] as const) {
+  it_(_.RequiredId, SellerInput) {
   // only supports updating seller, not inventory
 }
 
-export class UpdateSellerInv extends
-  PickType(Seller, ['inventory'] as const) {
-  // only for inventory updating
-}
 
-export class ListSellerInvInput {
-  // list inventory for a specific seller
-}
 
-export class ListSellerInvCountInput {
-  // retrieve current productId count
-}
+// // inventory should be in a separate resolver
+
+
+// export class UpdateSellerInv extends
+//   pt_(Seller, ['inventory'] as const) {
+//   // only for inventory updating
+// }
+
+// export class ListSellerInvInput {
+//   // list inventory for a specific seller
+// }
+
+// export class ListSellerInvCountInput {
+//   // retrieve current productId count
+// }

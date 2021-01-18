@@ -1,12 +1,15 @@
-import { Field } from "@nestjs/graphql";
+import { Field, InputType, ObjectType } from "@nestjs/graphql";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document, Types } from "mongoose";
 
-export class SellerInventory {
-  productId: string;
-  currentStock: number;
-}
 
+// export class Inventory {
+//   productId: string;
+//   currentStock: number;
+// }
+
+@InputType("SellerInput")
+@ObjectType("SellerType")
 @Schema({ collection: "sellers", timestamps: true })
 export class Seller {
   @Field(() => String)
@@ -16,9 +19,13 @@ export class Seller {
   @Prop({ default: null })
   accountId?: Types.ObjectId; //todo: link
 
-  @Field(() => [SellerInventory], { nullable: true, defaultValue: null })
-  @Prop({ default: null })
-  inventory?: [SellerInventory]
+  @Field(() => String, { nullable: false })
+  @Prop()
+  businessName: string;
+
+  // @Field(() => [Inventory], { nullable: true, defaultValue: null })
+  // @Prop({ default: null })
+  // inventory?: [Inventory]
 
   @Field(() => Date, { nullable: true, defaultValue: null })
   @Prop({ default: null })
