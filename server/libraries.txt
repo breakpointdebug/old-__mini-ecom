@@ -9,6 +9,8 @@
 >> npm i class-validator
 >> npm i config
 
+current mongoose problem:
+https://github.com/Automattic/mongoose/issues/9606#issuecomment-736786416
 
 
 TODO: use passport for nestjs for easy implementation?
