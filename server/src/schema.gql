@@ -2,6 +2,12 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input AssociateProductToInvInput {
+  _id: String!
+  productId: String!
+  stockCount: Float = 0
+}
+
 input CreateProductInput {
   category: ProductCategory!
   description: String = null
@@ -15,7 +21,7 @@ input CreateProductInput {
 input CreateSellerInput {
   accountId: String = null
   businessName: String!
-  inventories: [InventoryInput!] = null
+  inventories: [ProductInput!] = null
 }
 
 """
@@ -26,22 +32,6 @@ scalar DateTime
 input DeleteProductInput {
   _id: String!
   deleteReason: String
-}
-
-input InventoryInput {
-  _id: String!
-  createdAt: DateTime = null
-  productId: String!
-  stockCount: Float!
-  updatedAt: DateTime = null
-}
-
-type InventoryType {
-  _id: String!
-  createdAt: DateTime
-  productId: String!
-  stockCount: Float!
-  updatedAt: DateTime
 }
 
 input ListProductInput {
@@ -55,10 +45,12 @@ input ListSellerInput {
 }
 
 type Mutation {
+  associateProductToInv(payload: AssociateProductToInvInput!): SellerType!
   createProduct(payload: CreateProductInput!): ProductType!
   createSeller(payload: CreateSellerInput!): SellerType!
   deleteProduct(payload: DeleteProductInput!): ProductType!
   updateProduct(payload: UpdateProductInput!): ProductType!
+  updateProductInv(payload: UpdateStockInvInput!): SellerType!
   updateSeller(payload: UpdateSellerInput!): SellerType!
 }
 
@@ -121,7 +113,7 @@ input SellerInput {
   accountId: String = null
   businessName: String!
   createdAt: DateTime = null
-  inventories: [InventoryInput!] = null
+  inventories: [ProductInput!] = null
   updatedAt: DateTime = null
 }
 
@@ -130,8 +122,13 @@ type SellerType {
   accountId: String
   businessName: String!
   createdAt: DateTime
-  inventories: [InventoryType!]
+  inventories: [ProductType!]
   updatedAt: DateTime
+}
+
+input StockInvInput {
+  productId: String!
+  stockCount: Float!
 }
 
 input UpdateProductInput {
@@ -149,5 +146,10 @@ input UpdateSellerInput {
   _id: String!
   accountId: String = null
   businessName: String!
-  inventories: [InventoryInput!] = null
+  inventories: [ProductInput!] = null
+}
+
+input UpdateStockInvInput {
+  _id: String!
+  inventory: StockInvInput!
 }

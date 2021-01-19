@@ -1,7 +1,6 @@
 import { Field, InputType, IntersectionType as it_, OmitType as ot_ } from '@nestjs/graphql';
 import { IsOptional, Length } from 'class-validator';
 import { Product } from './product.model';
-
 import * as _ from '../_generic/misc.inputs';
 
 @InputType()

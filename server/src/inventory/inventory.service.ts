@@ -12,6 +12,8 @@ export class InventoryService extends BaseService<InventoryDocument> {
   }
 
 
+  // "TODO: linking of inventory (productId, stockCount) from seller without using an extra collection"
+
   // save routine
   // if productId already exists, then update the count, else insert
 }

@@ -3,7 +3,6 @@ import { Field, InputType, ObjectType, registerEnumType } from '@nestjs/graphql'
 import { Document, Types } from 'mongoose';
 import { IsOptional, IsPositive, Length } from 'class-validator';
 import { ProductCategory } from './product.enum';
-
 import { BaseModel } from '../_generic/base.model';
 // https://www.npmjs.com/package/class-validator
 
