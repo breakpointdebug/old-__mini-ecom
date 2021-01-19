@@ -5,8 +5,8 @@ import { Document, Model, Types } from 'mongoose';
 export abstract class BaseService<M extends Document> {
   constructor(private readonly model: Model<M>) { }
 
-  create<DTO>(payload: DTO) {
-    return (new this.model(payload)).save();
+  create<DTO>(payload: DTO, extraOption?: any) {
+    return (new this.model({ ...payload, ...extraOption })).save();
   }
 
   getById(_id: Types.ObjectId) {

@@ -38,7 +38,7 @@ export class SellerService extends BaseService<SellerDocument> {
     return null;
   }
 
-  updateProductInv(payload: _.UpdateStockInvInput) {
-    return null;
-  }
+  // updateProductInv(payload: _.UpdateStockInvInput) {
+  //   return null;
+  // }
 }

@@ -21,7 +21,6 @@ input CreateProductInput {
 input CreateSellerInput {
   accountId: String = null
   businessName: String!
-  inventories: [StockInvInput!] = null
 }
 
 """
@@ -32,6 +31,16 @@ scalar DateTime
 input DeleteProductInput {
   _id: String!
   deleteReason: String
+}
+
+input InventoriesInput {
+  productId: String!
+  stockCount: Float!
+}
+
+type InventoriesType {
+  productId: String!
+  stockCount: Float!
 }
 
 input ListProductInput {
@@ -50,7 +59,6 @@ type Mutation {
   createSeller(payload: CreateSellerInput!): SellerType!
   deleteProduct(payload: DeleteProductInput!): ProductType!
   updateProduct(payload: UpdateProductInput!): ProductType!
-  updateProductInv(payload: UpdateStockInvInput!): SellerType!
   updateSeller(payload: UpdateSellerInput!): SellerType!
 }
 
@@ -113,7 +121,7 @@ input SellerInput {
   accountId: String = null
   businessName: String!
   createdAt: DateTime = null
-  inventories: [StockInvInput!] = null
+  inventories: [InventoriesInput!]!
   updatedAt: DateTime = null
 }
 
@@ -122,18 +130,8 @@ type SellerType {
   accountId: String
   businessName: String!
   createdAt: DateTime
-  inventories: [StockInvType!]
+  inventories: [InventoriesType!]!
   updatedAt: DateTime
-}
-
-input StockInvInput {
-  productId: String!
-  stockCount: Float = 0
-}
-
-type StockInvType {
-  productId: String!
-  stockCount: Float!
 }
 
 input UpdateProductInput {
@@ -151,10 +149,4 @@ input UpdateSellerInput {
   _id: String!
   accountId: String = null
   businessName: String!
-  inventories: [StockInvInput!] = null
-}
-
-input UpdateStockInvInput {
-  _id: String!
-  inventories: StockInvInput!
 }

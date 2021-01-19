@@ -34,8 +34,8 @@ export class SellerResolver {
     return await this.sellerService.associateProductToInv(payload);
   }
 
-  @Mutation(() => Seller)
-  async updateProductInv(@Args('payload') payload: _.UpdateStockInvInput) {
-    return await this.sellerService.updateProductInv(payload);
-  }
+  // @Mutation(() => Seller)
+  // async updateProductInv(@Args('payload') payload: _.UpdateStockInvInput) {
+  //   return await this.sellerService.updateProductInv(payload);
+  // }
 }

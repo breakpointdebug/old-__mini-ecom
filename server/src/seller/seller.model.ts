@@ -5,20 +5,29 @@ import { Product } from "../product/product.model";
 import { BaseModel } from '../_generic/base.model';
 
 
-@InputType("StockInvInput")
-@ObjectType("StockInvType")
-@Schema()
-export class StockInv {
-  @Field(() => String)
-  @Prop({ unique: true, type: Types.ObjectId, ref: Product.name })
-  productId: Types.ObjectId;
+// @InputType("StockInvInput")
+// @ObjectType("StockInvType")
+// @Schema({ timestamps: true })
+// export class StockInv extends BaseModel {
 
-  @Field(() => Number, { defaultValue: 0 })
-  @Prop({ default: 0 })
+//   @Field(() => String)
+//   @Prop()
+//   productId: string;
+
+//   @Field(() => Number)
+//   @Prop()
+//   stockCount: number;
+// }
+
+@InputType("InventoriesInput")
+@ObjectType("InventoriesType")
+class Inventories {
+  @Field(() => String)
+  productId: string;  //logic check, if exists, then just update, else insert
+
+  @Field(() => Number)
   stockCount: number;
 }
-
-const StockInvSchema = SchemaFactory.createForClass(StockInv);
 
 @InputType("SellerInput")
 @ObjectType("SellerType")
@@ -27,15 +36,15 @@ export class Seller extends BaseModel {
 
   @Field(() => String, { nullable: true, defaultValue: null })
   @Prop({ default: null })
-  accountId?: Types.ObjectId; //todo: link by ref
+  accountId?: String; //todo: link by ref
 
   @Field(() => String, { nullable: false })
   @Prop({ unique: true })
   businessName: string;
 
-  @Field(() => [StockInv], { nullable: true, defaultValue: null })
-  @Prop({ unique: true, default: null, type: [StockInvSchema], ref: StockInv.name })
-  inventories?: [StockInv]
+  @Field(() => [Inventories])
+  @Prop()
+  inventories: Inventories[]
 }
 
 export type SellerDocument = Seller & Document;

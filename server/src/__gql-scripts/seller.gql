@@ -1,0 +1,29 @@
+mutation {
+  createSeller(payload: {
+    businessName: "hehehe"
+  }) {
+    _id
+    accountId
+    businessName
+    inventories {
+      productId
+      stockCount
+    }
+    createdAt
+    updatedAt
+  }
+}
+
+query {
+  sellers {
+    _id
+    accountId
+    businessName
+    inventories {
+      productId
+      stockCount
+    }
+    createdAt
+    updatedAt
+  }
+}
