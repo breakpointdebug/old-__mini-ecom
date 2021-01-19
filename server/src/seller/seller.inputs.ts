@@ -1,6 +1,6 @@
 import { Field, InputType, IntersectionType as it_, OmitType as ot_, PickType, PickType as pt_ } from "@nestjs/graphql";
 import { Types } from "mongoose";
-import { Seller } from "./seller.model";
+import { Seller, StockInv } from "./seller.model";
 import * as _ from "../_generic/misc.inputs";
 
 @InputType()
@@ -35,18 +35,9 @@ export class AssociateProductToInvInput extends _.RequiredId {
 }
 
 @InputType()
-class StockInvInput {
-  @Field(() => String)
-  productId: string;
-
-  @Field(() => Number)
-  stockCount: number;
-}
-
-@InputType()
 export class UpdateStockInvInput extends _.RequiredId {
-  @Field(() => StockInvInput)
-  inventory: StockInvInput;
+  @Field(() => StockInv)
+  inventories: StockInv;
 }
 
 

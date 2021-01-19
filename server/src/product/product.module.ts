@@ -9,7 +9,7 @@ import { ProductResolver } from './product.resolver';
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Product.name, schema: ProductSchema }]),
-    forwardRef(() => SellerModule)
+    forwardRef(() => SellerModule) /** fix circular dependency for Seller */
   ],
   providers: [ProductService, ProductResolver],
   exports: [ProductService]

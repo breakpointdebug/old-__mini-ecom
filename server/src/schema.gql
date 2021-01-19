@@ -21,7 +21,7 @@ input CreateProductInput {
 input CreateSellerInput {
   accountId: String = null
   businessName: String!
-  inventories: [ProductInput!] = null
+  inventories: [StockInvInput!] = null
 }
 
 """
@@ -113,7 +113,7 @@ input SellerInput {
   accountId: String = null
   businessName: String!
   createdAt: DateTime = null
-  inventories: [ProductInput!] = null
+  inventories: [StockInvInput!] = null
   updatedAt: DateTime = null
 }
 
@@ -122,11 +122,16 @@ type SellerType {
   accountId: String
   businessName: String!
   createdAt: DateTime
-  inventories: [ProductType!]
+  inventories: [StockInvType!]
   updatedAt: DateTime
 }
 
 input StockInvInput {
+  productId: String!
+  stockCount: Float = 0
+}
+
+type StockInvType {
   productId: String!
   stockCount: Float!
 }
@@ -146,10 +151,10 @@ input UpdateSellerInput {
   _id: String!
   accountId: String = null
   businessName: String!
-  inventories: [ProductInput!] = null
+  inventories: [StockInvInput!] = null
 }
 
 input UpdateStockInvInput {
   _id: String!
-  inventory: StockInvInput!
+  inventories: StockInvInput!
 }

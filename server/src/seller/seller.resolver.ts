@@ -28,7 +28,7 @@ export class SellerResolver {
     return await this.sellerService.update<_.UpdateSellerInput>(payload._id, payload);
   }
 
-  // TODO: temporary for testing, will remove endpoint later
+  // TODO: temporary for testing, will remove endpoint later after sellerId is at context
   @Mutation(() => Seller)
   async associateProductToInv(@Args('payload') payload: _.AssociateProductToInvInput) {
     return await this.sellerService.associateProductToInv(payload);

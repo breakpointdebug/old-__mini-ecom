@@ -26,7 +26,8 @@ export class ProductResolver {
     // 1. only continue if sellerId exists on current user context
     // 1.1. user guards to determine if sellerId does not exist on current context
     // 2. after create success, associate this newly created product to current sellerId
-    // 2.1 this.sellerService.associateProductToInv()
+    // 2.1 this.sellerService.associateProductToInv()... get sellerId from context
+    // how to get sellerId from context again?
     return await this.productService.create<_.CreateProductInput>(payload);
   }
 

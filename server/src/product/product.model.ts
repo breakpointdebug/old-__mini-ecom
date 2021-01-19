@@ -16,7 +16,7 @@ export class Product extends BaseModel {
   @IsOptional() // temporary
   @Field(() => String, { nullable: true, defaultValue: null })
   @Prop({ default: null })
-  sellerId?: Types.ObjectId; // temporary, todo: link
+  sellerId?: Types.ObjectId; //todo: link by ref (via sellerId context)
 
   @Field(() => ProductCategory)
   @Prop()
