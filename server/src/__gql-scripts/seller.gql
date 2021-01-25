@@ -1,7 +1,5 @@
-mutation {
-  createSeller(payload: {
-    businessName: "hehehe"
-  }) {
+query {
+  sellers {
     _id
     accountId
     businessName
@@ -14,8 +12,10 @@ mutation {
   }
 }
 
-query {
-  sellers {
+mutation {
+  createSeller(payload: {
+    businessName: "hehehe"
+  }) {
     _id
     accountId
     businessName

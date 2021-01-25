@@ -20,6 +20,7 @@ export class SellerResolver {
 
   @Mutation(() => Seller)
   async createSeller(@Args('payload') payload: _.CreateSellerInput) {
+    // check if businessName already exists
     return await this.sellerService.create<_.CreateSellerInput>(payload);
   }
 

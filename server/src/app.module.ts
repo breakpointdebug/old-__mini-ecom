@@ -22,7 +22,8 @@ const gqlConf = config.get('config.gql');
         bufferMaxEntries: 0,
         useCreateIndex: true,
         useFindAndModify: false,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
+        autoIndex: true
       }
     ),
     GraphQLModule.forRoot({

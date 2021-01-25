@@ -1,0 +1,24 @@
+query {
+  products {
+    _id
+    category
+    name
+    sellerId
+    createdAt
+    updatedAt
+  }
+}
+
+mutation {
+  createProduct(payload:{
+    category: APPAREL_AND_ACCESSORIES
+    name: "test1"
+    sellerId: "6007a2c56140f90380a9e022"
+  }) {
+    _id
+    name
+    category
+    createdAt
+    updatedAt
+  }
+}

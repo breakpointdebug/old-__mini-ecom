@@ -15,7 +15,7 @@ export class SellerService extends BaseService<SellerDocument> {
   }
 
   // function will be used by ProductResolver
-  associateProductToInv({ _id, productId, stockCount }: _.AssociateProductToInvInput) {
+  associateProductToInv({ _id, productId }: _.AssociateProductToInvInput) {
     if (!this.productService.getById(productId)) {
       throw new NotFoundException("product not found");
     }
@@ -23,6 +23,10 @@ export class SellerService extends BaseService<SellerDocument> {
     if (!this.getById(_id)) {
       throw new NotFoundException("seller not found");
     }
+
+    // link products.sellerId -> sellers._id
+    // link sellers.inventories.productId -> products._id
+    // link sellers.inventories.stockCount -> 0
 
     // https://docs.mongodb.com/manual/reference/operator/query-comparison/
     // https://kb.objectrocket.com/mongo-db/using-nodejs-and-mongoose-to-update-array-1205

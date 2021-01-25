@@ -24,7 +24,7 @@ export class Product extends BaseModel {
 
   @Length(1, 100, { message: "Product Name should be between 1 to 100 characters." })
   @Field(() => String)
-  @Prop()
+  @Prop() //TODO: custom validator, duplicate name value should not exist within a specific sellerId
   name: string;
 
   @IsOptional()

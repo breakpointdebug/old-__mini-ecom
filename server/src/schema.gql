@@ -5,7 +5,6 @@
 input AssociateProductToInvInput {
   _id: String!
   productId: String!
-  stockCount: Float = 0
 }
 
 input CreateProductInput {

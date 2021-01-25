@@ -19,7 +19,7 @@ export abstract class BaseService<M extends Document> {
   }
 
   update<DTO>(_id: Types.ObjectId, payload: DTO) {
-    return this.model.findByIdAndUpdate(_id, payload, { new: true }).exec();
+    return this.model.findByIdAndUpdate(_id, payload, { runValidators: true, new: true }).exec();
   }
 
   deleteByLogic<DTO>(_id: Types.ObjectId, payload: DTO) {

@@ -36,10 +36,10 @@ export class Seller extends BaseModel {
 
   @Field(() => String, { nullable: true, defaultValue: null })
   @Prop({ default: null })
-  accountId?: String; //todo: link by ref
+  accountId?: Types.ObjectId; //todo: link by ref
 
-  @Field(() => String, { nullable: false })
-  @Prop({ unique: true })
+  @Field(() => String)
+  @Prop()
   businessName: string;
 
   @Field(() => [Inventories])

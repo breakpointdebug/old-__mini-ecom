@@ -29,9 +29,6 @@ export class UpdateSellerInput extends
 export class AssociateProductToInvInput extends _.RequiredId {
   @Field(() => String)
   productId: Types.ObjectId;
-
-  @Field(() => Number, { defaultValue: 0 })
-  stockCount: number;
 }
 
 // @InputType()
