@@ -6,6 +6,7 @@ import { join } from 'path';
 import { ProductModule } from './product/product.module';
 import { AccountModule } from './account/account.module';
 import { SellerModule } from './seller/seller.module';
+import { InventoryModule } from './inventory/inventory.module';
 
 import * as config from 'config';
 const dbConf = config.get('config.db');
@@ -21,7 +22,8 @@ const gqlConf = config.get('config.gql');
         bufferMaxEntries: 0,
         useCreateIndex: true,
         useFindAndModify: false,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
+        autoIndex: true
       }
     ),
     GraphQLModule.forRoot({
@@ -34,7 +36,8 @@ const gqlConf = config.get('config.gql');
     }),
     ProductModule,
     AccountModule,
-    SellerModule
+    SellerModule,
+    InventoryModule
   ]
 })
 export class AppModule { }

@@ -2,12 +2,14 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Types } from 'mongoose';
 import { Product } from './product.model';
 import { ProductService } from './product.service';
-
+import { SellerService } from '../seller/seller.service';
 import * as _ from './product.inputs';
+import { NotFoundException } from '@nestjs/common';
 
 @Resolver(() => Product)
 export class ProductResolver {
-  constructor(private productService: ProductService) { }
+  constructor(private readonly productService: ProductService,
+    private readonly sellerService: SellerService) { }
 
   @Query(() => Product)
   async product(@Args('_id', { type: () => String }) _id: Types.ObjectId) {
@@ -21,6 +23,21 @@ export class ProductResolver {
 
   @Mutation(() => Product)
   async createProduct(@Args('payload') payload: _.CreateProductInput) {
+    // todo
+    // 1. only continue if sellerId exists on current user context
+    // 1.1. user guards to determine if sellerId does not exist on current context
+    // 2. after create success, associate this newly created product to current sellerId
+    // 2.1 this.sellerService.associateProductToInv()... get sellerId from context
+    // how to get sellerId from context again?
+
+    const checkSeller = await this.sellerService.getById(payload.sellerId);
+
+    if (!checkSeller) {
+      throw new NotFoundException("seller not found");
+    }
+
+    // check if product name already exists for that seller
+
     return await this.productService.create<_.CreateProductInput>(payload);
   }
 

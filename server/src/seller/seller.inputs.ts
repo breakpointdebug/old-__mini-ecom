@@ -1,7 +1,7 @@
-import { Field, InputType, IntersectionType as it_, OmitType as ot_, PickType as pt_ } from "@nestjs/graphql";
+import { Field, InputType, IntersectionType as it_, OmitType as ot_, PickType, PickType as pt_ } from "@nestjs/graphql";
+import { Types } from "mongoose";
 import { Seller } from "./seller.model";
-
-import * as _ from "../_generic/base.inputs";
+import * as _ from "../_generic/misc.inputs";
 
 @InputType()
 export class ListSellerInput extends _.OptionalId {
@@ -12,7 +12,7 @@ export class ListSellerInput extends _.OptionalId {
 // 'inventory'
 @InputType()
 class SellerInput extends
-  ot_(Seller, ['_id', 'createdAt', 'updatedAt'] as const) { }
+  ot_(Seller, ['_id', 'inventories', 'createdAt', 'updatedAt'] as const) { }
 
 @InputType()
 export class CreateSellerInput extends SellerInput {
@@ -24,6 +24,18 @@ export class UpdateSellerInput extends
   it_(_.RequiredId, SellerInput) {
   // only supports updating seller, not inventory
 }
+
+@InputType()
+export class AssociateProductToInvInput extends _.RequiredId {
+  @Field(() => String)
+  productId: Types.ObjectId;
+}
+
+// @InputType()
+// export class UpdateStockInvInput extends _.RequiredId {
+//   @Field(() => StockInv)
+//   inventories: StockInv;
+// }
 
 
 

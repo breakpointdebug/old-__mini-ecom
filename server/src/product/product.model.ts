@@ -3,6 +3,7 @@ import { Field, InputType, ObjectType, registerEnumType } from '@nestjs/graphql'
 import { Document, Types } from 'mongoose';
 import { IsOptional, IsPositive, Length } from 'class-validator';
 import { ProductCategory } from './product.enum';
+import { BaseModel } from '../_generic/base.model';
 // https://www.npmjs.com/package/class-validator
 
 registerEnumType(ProductCategory, { name: 'ProductCategory' });
@@ -10,14 +11,12 @@ registerEnumType(ProductCategory, { name: 'ProductCategory' });
 @InputType("ProductInput") // graphql input
 @ObjectType("ProductType") // graphql field
 @Schema({ collection: "products", timestamps: true }) // mongoose field
-export class Product {
-  @Field(() => String)
-  _id: Types.ObjectId;
+export class Product extends BaseModel {
 
   @IsOptional() // temporary
   @Field(() => String, { nullable: true, defaultValue: null })
   @Prop({ default: null })
-  sellerId?: Types.ObjectId; // temporary, todo: link
+  sellerId?: Types.ObjectId; //todo: link by ref (via sellerId context)
 
   @Field(() => ProductCategory)
   @Prop()
@@ -25,7 +24,7 @@ export class Product {
 
   @Length(1, 100, { message: "Product Name should be between 1 to 100 characters." })
   @Field(() => String)
-  @Prop()
+  @Prop() //TODO: custom validator, duplicate name value should not exist within a specific sellerId
   name: string;
 
   @IsOptional()
@@ -66,14 +65,6 @@ export class Product {
   @Field(() => Date, { nullable: true, defaultValue: null })
   @Prop({ default: null })
   deletedAt?: Date;
-
-  @Field(() => Date, { nullable: true, defaultValue: null })
-  @Prop({ default: null })
-  createdAt?: Date;
-
-  @Field(() => Date, { nullable: true, defaultValue: null })
-  @Prop({ default: null })
-  updatedAt?: Date;
 }
 
 export type ProductDocument = Product & Document;

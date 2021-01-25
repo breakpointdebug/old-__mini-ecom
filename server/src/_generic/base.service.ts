@@ -5,8 +5,8 @@ import { Document, Model, Types } from 'mongoose';
 export abstract class BaseService<M extends Document> {
   constructor(private readonly model: Model<M>) { }
 
-  create<DTO>(payload: DTO) {
-    return (new this.model(payload)).save();
+  create<DTO>(payload: DTO, extraOption?: any) {
+    return (new this.model({ ...payload, ...extraOption })).save();
   }
 
   getById(_id: Types.ObjectId) {
@@ -19,7 +19,7 @@ export abstract class BaseService<M extends Document> {
   }
 
   update<DTO>(_id: Types.ObjectId, payload: DTO) {
-    return this.model.findByIdAndUpdate(_id, payload, { new: true }).exec();
+    return this.model.findByIdAndUpdate(_id, payload, { runValidators: true, new: true }).exec();
   }
 
   deleteByLogic<DTO>(_id: Types.ObjectId, payload: DTO) {

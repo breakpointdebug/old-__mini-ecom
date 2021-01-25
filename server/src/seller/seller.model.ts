@@ -1,39 +1,50 @@
 import { Field, InputType, ObjectType } from "@nestjs/graphql";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document, Types } from "mongoose";
+import { Product } from "../product/product.model";
+import { BaseModel } from '../_generic/base.model';
 
 
-// export class Inventory {
+// @InputType("StockInvInput")
+// @ObjectType("StockInvType")
+// @Schema({ timestamps: true })
+// export class StockInv extends BaseModel {
+
+//   @Field(() => String)
+//   @Prop()
 //   productId: string;
-//   currentStock: number;
+
+//   @Field(() => Number)
+//   @Prop()
+//   stockCount: number;
 // }
+
+@InputType("InventoriesInput")
+@ObjectType("InventoriesType")
+class Inventories {
+  @Field(() => String)
+  productId: string;  //logic check, if exists, then just update, else insert
+
+  @Field(() => Number)
+  stockCount: number;
+}
 
 @InputType("SellerInput")
 @ObjectType("SellerType")
 @Schema({ collection: "sellers", timestamps: true })
-export class Seller {
-  @Field(() => String)
-  _id: Types.ObjectId;
+export class Seller extends BaseModel {
 
   @Field(() => String, { nullable: true, defaultValue: null })
   @Prop({ default: null })
-  accountId?: Types.ObjectId; //todo: link
+  accountId?: Types.ObjectId; //todo: link by ref
 
-  @Field(() => String, { nullable: false })
+  @Field(() => String)
   @Prop()
   businessName: string;
 
-  // @Field(() => [Inventory], { nullable: true, defaultValue: null })
-  // @Prop({ default: null })
-  // inventory?: [Inventory]
-
-  @Field(() => Date, { nullable: true, defaultValue: null })
-  @Prop({ default: null })
-  createdAt?: Date;
-
-  @Field(() => Date, { nullable: true, defaultValue: null })
-  @Prop({ default: null })
-  updatedAt?: Date;
+  @Field(() => [Inventories])
+  @Prop()
+  inventories: Inventories[]
 }
 
 export type SellerDocument = Seller & Document;

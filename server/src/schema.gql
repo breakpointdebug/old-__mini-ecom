@@ -2,6 +2,11 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input AssociateProductToInvInput {
+  _id: String!
+  productId: String!
+}
+
 input CreateProductInput {
   category: ProductCategory!
   description: String = null
@@ -27,6 +32,16 @@ input DeleteProductInput {
   deleteReason: String
 }
 
+input InventoriesInput {
+  productId: String!
+  stockCount: Float!
+}
+
+type InventoriesType {
+  productId: String!
+  stockCount: Float!
+}
+
 input ListProductInput {
   _id: String
   name: String
@@ -38,6 +53,7 @@ input ListSellerInput {
 }
 
 type Mutation {
+  associateProductToInv(payload: AssociateProductToInvInput!): SellerType!
   createProduct(payload: CreateProductInput!): ProductType!
   createSeller(payload: CreateSellerInput!): SellerType!
   deleteProduct(payload: DeleteProductInput!): ProductType!
@@ -104,6 +120,7 @@ input SellerInput {
   accountId: String = null
   businessName: String!
   createdAt: DateTime = null
+  inventories: [InventoriesInput!]!
   updatedAt: DateTime = null
 }
 
@@ -112,6 +129,7 @@ type SellerType {
   accountId: String
   businessName: String!
   createdAt: DateTime
+  inventories: [InventoriesType!]!
   updatedAt: DateTime
 }
 
